@@ -1,0 +1,211 @@
+@import '~vars.less';
+
+.component {
+    position: relative;
+    width: 100dvw;
+    height: 100dvh;
+    background: no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+    overscroll-behavior: none;
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: #fff;
+    }
+
+    .controls {
+        --font-size: 16px;
+        --line-height: calc(var(--font-size) * 1.5);
+
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 240px;
+        height: 100%;
+        overflow: auto;
+        padding: 1em;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(20px);
+        display: inline-block;
+        color: #fff;
+        font-size: var(--font-size);
+        line-height: var(--line-height);
+        user-select: none;
+        scrollbar-width: thin;
+        // scrollbar-color: fade(#fff, 25%) fade(#000, 25%);
+
+        button {
+            font-size: inherit;
+            line-height: calc(var(--line-height) - 2px);
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 10em;
+            padding: 0 0.75em;
+            border: fade(#fff, 25%) 1px solid;
+            background: fade(#fff, 17.5%);
+            color: #fff;
+            transition: background-color ease-out 0.15s;
+            box-shadow: 0 1px 4px 1px fade(#000, 15%);
+            position: relative;
+            &:hover,
+            &:focus {
+                background: fade(#fff, 25%);
+            }
+            &:active {
+                background: fade(#000, 15%);
+            }
+            &.is-active {
+                background: #080;
+            }
+            & > .anticon {
+                font-size: 16px;
+                pointer-events: none;
+            }
+            &.mod-round {
+                padding: 0;
+                width: var(--line-height);
+                overflow: hidden;
+            }
+        }
+        .empty {
+            display: inline-block;
+            color: fade(#fff, 50%);
+        }
+
+        dl {
+            --title-width: 2.5em;
+            --gutter: 5px;
+            --item-margin: 10px;
+
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: block;
+            position: relative;
+            padding-left: calc(var(--title-width) + var(--gutter));
+            &,
+            dt,
+            dd,
+            dd > :not(button) {
+                font-size: inherit;
+                line-height: inherit;
+            }
+            dt {
+                width: var(--title-width);
+                display: block;
+                position: sticky;
+                top: 0;
+                left: 0;
+                margin-left: calc(var(--title-width) * -1 - var(--gutter));
+                height: var(--line-height);
+                overflow: visible;
+                color: fade(#fff, 75%);
+            }
+            dd {
+                display: block;
+                margin: calc(var(--item-margin) * -1 - var(--line-height)) 0 0 0;
+                & > * {
+                    margin: var(--item-margin) var(--item-margin) 0 0;
+                }
+                select {
+                    width: 100%;
+                }
+                button {
+                    // display: inline-block;
+                    // cursor: pointer;
+                    // &.is-active {
+                    //     background: #080;
+                    // }
+                }
+                ul {
+                    padding-left: 1.5em;
+                    li + li {
+                        margin-top: calc(var(--item-margin) / 2);
+                    }
+                }
+            }
+
+            & + dl {
+                margin-top: 2em;
+                padding-top: 2em;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: fade(#fff, 15%);
+                }
+            }
+
+            &.is-position {
+                dd {
+                    --unit: calc(var(--line-height) + var(--item-margin));
+                    height: calc(var(--unit) * 3);
+                    position: relative;
+                    button {
+                        position: absolute;
+                        margin: 0;
+                    }
+                    .is-up {
+                        top: var(--item-margin);
+                        left: calc(var(--unit));
+                    }
+                    .is-down {
+                        top: calc(var(--unit) * 2 + var(--item-margin));
+                        left: calc(var(--unit) * 1);
+                    }
+                    .is-left {
+                        top: calc(var(--unit) * 1 + var(--item-margin));
+                        left: 0;
+                    }
+                    .is-right {
+                        top: calc(var(--unit) * 1 + var(--item-margin));
+                        left: calc(var(--unit) * 2);
+                    }
+                    .is-reset {
+                        top: calc(var(--unit) * 1 + var(--item-margin));
+                        left: calc(var(--unit) * 1);
+                    }
+                }
+            }
+
+            &.is-scale {
+                dd {
+                    --unit: calc(var(--line-height) + var(--item-margin));
+                    height: calc(var(--unit) * 1);
+                    position: relative;
+                    button {
+                        position: absolute;
+                        margin: 0;
+                    }
+                    .is-up {
+                        top: var(--item-margin);
+                        left: 0;
+                    }
+                    .is-down {
+                        top: var(--item-margin);
+                        left: calc(var(--unit) * 2);
+                    }
+                    .is-reset {
+                        top: var(--item-margin);
+                        left: calc(var(--unit) * 1);
+                    }
+                }
+            }
+        }
+
+        &.is-model-state-ready {
+            padding-top: 2.5em;
+            padding-bottom: 2.5em;
+        }
+    }
+}
